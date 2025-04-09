@@ -12,7 +12,7 @@ export default function LandingPage() {
   const [showModal, setShowModal] = useState(false)
   const { handlePhoneChange } = usePhoneFormat()
 
-  /* 폼 제출 처리
+  /* 폼 제출 처리 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
