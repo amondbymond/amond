@@ -12,7 +12,7 @@ export default function LandingPage() {
   const [showModal, setShowModal] = useState(false)
   const { handlePhoneChange } = usePhoneFormat()
 
-  // 폼 제출 처리
+  /* 폼 제출 처리
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -42,6 +42,39 @@ export default function LandingPage() {
 
     // 성공 모달 표시
     setShowModal(true)
+  }*/
+
+  // 예시: 클라이언트 코드 (Next.js)
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const email = formData.get("email") as string
+    const phone = formData.get("phone") as string
+    const adConsent = formData.get("marketing") === "on"
+    
+    const formDataObj = {
+      email,
+      phone,
+      adConsent,
+    }
+    
+    try {
+      const response = await fetch("http://3.16.196.163:5000/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataObj),
+      })
+      if (!response.ok) {
+        throw new Error("Failed to save submission.")
+      }
+      // 제출 성공 시 추가 동작...
+      form.reset()
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // 푸터로 스크롤 함수
